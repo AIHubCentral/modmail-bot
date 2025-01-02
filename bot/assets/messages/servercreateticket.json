@@ -21,7 +21,10 @@
             "type": 2,
             "style": 1,
             "label": "Create ticket",
-            "custom_id": "guildcreateticket"
+            "custom_id": "guildcreateticket",
+            "emoji": {
+              "name": "🎟"
+            }
           }
         ]
       }

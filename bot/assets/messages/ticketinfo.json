@@ -2,7 +2,7 @@
   "type": "default",
   "info": "Wird in einen neuen Ticketchannel gesendet",
   "data": {
-    "content": "<@&347881078004121611>",
+    "content": "<@&1159293140440723499>",
     "embeds": [
       {
         "author": {
@@ -68,8 +68,7 @@
                 "label": "Close ticket",
                 "value": "close-ticket",
                 "emoji": {
-                  "name": "check_green",
-                  "id": "934432144577667072"
+                  "name": "✅"
                 }
               },
               {
