@@ -1,52 +1,50 @@
-const Core    = require("core"),
-      Discord = require("discord.js"),
-      fetch   = require("node-fetch");
+const Core = require("core");
 
 exports.data = {
- name: "reply",
- description: "Auf ein Ticket antworten",
- options: [
-  {
-   type: "STRING",
-   name: "message",
-   description: "Nachricht",
-   required: true
-  }
- ]
+  name: "reply",
+  description: "Answers a ticket",
+  options: [
+    {
+      type: "STRING",
+      name: "message",
+      description: "Message",
+      required: true
+    }
+  ]
 }
 
 /**
- * @param {Discord.CommandInteraction} interaction 
+ * @param {Discord.CommandInteraction} interaction
  */
 exports.run = async (interaction) => {
 
- // channel.name = userId
- let ticket = Core.tickets.cache.get(interaction.channel.name);
+  // channel.name = userId
+  let ticket = Core.tickets.cache.get(interaction.channel.name);
 
- if (!ticket) return;
+  if (!ticket) return;
 
- await interaction.deferReply({ ephemeral: true });
+  await interaction.deferReply({ephemeral: true});
 
- let formattedMessage = interaction.options.get("message")?.value
- formattedMessage = formattedMessage.replaceAll("\\n", "\n");
+  let formattedMessage = interaction.options.get("message")?.value
+  formattedMessage = formattedMessage.replaceAll("\\n", "\n");
 
- let addMsgResult = await ticket.addMessage("GUILD", {
-  author: interaction.member.user,
-  content: formattedMessage
- });
-
- if (addMsgResult?.errCode === 409) {
-
-  interaction.editReply({
-   content: `${Core.data.config.messageTypes.error.emoji} **Nachricht konnte nicht gesendet werden:**\n> ${addMsgResult.error}`
+  let addMsgResult = await ticket.addMessage("GUILD", {
+    author: interaction.member.user,
+    content: formattedMessage
   });
 
- } else {
+  if (addMsgResult?.errCode === 409) {
 
-  interaction.editReply({
-   content: `${Core.data.config.messageTypes.success.emoji} Nachricht gesendet.`
-  });
+    interaction.editReply({
+      content: `${Core.data.config.messageTypes.error.emoji} **Message could not be sent:**\n> ${addMsgResult.error}`
+    });
 
- }
+  } else {
+
+    interaction.editReply({
+      content: `${Core.data.config.messageTypes.success.emoji} Message sent.`
+    });
+
+  }
 
 }

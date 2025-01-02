@@ -1,22 +1,20 @@
-const Core    = require("core"),
-      Discord = require("discord.js"),
-      fetch   = require("node-fetch");
+const Core = require("core");
 
 exports.data = {
- name: "close",
- description: "Schließt ein Ticket"
+  name: "close",
+  description: "Closes a ticket"
 }
 
 /**
- * @param {Discord.CommandInteraction} interaction 
+ * @param {Discord.CommandInteraction} interaction
  */
 exports.run = async (interaction) => {
 
- // channel.name = userId
- let ticket = Core.tickets.cache.get(interaction.channel.name);
+  // channel.name = userId
+  let ticket = Core.tickets.cache.get(interaction.channel.name);
 
- if (!ticket) return;
+  if (!ticket) return;
 
- ticket.close(interaction);
+  ticket.close(interaction);
 
 }

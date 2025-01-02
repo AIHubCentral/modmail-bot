@@ -1,35 +1,26 @@
 {
-  "name": "fyfu-modmail",
+  "name": "aihub-modmail",
   "version": "1.0.0",
-  "description": "Fyfu ModMail",
-  "main": "index.js",
+  "description": "AI Hub ModMail",
+  "main": "bot/index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "engines": {
-    "node": "16"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dev-suro/modmail-bot.git"
-  },
-  "author": "Faye",
+  "author": "Faye, SleepyYui",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/dev-suro/modmail-bot/issues"
-  },
-  "homepage": "https://github.com/dev-suro/modmail-bot#readme",
   "dependencies": {
     "@lukeed/uuid": "^2.0.0",
-    "cookie": "^0.4.1",
+    "@supabase/supabase-js": "^2.47.10",
+    "cookie": "1.0.2",
     "core": "file:./bot/core",
     "dayjs": "^1.10.7",
     "discord-markdown": "^2.5.1",
     "discord.js": "^13.6.0",
     "dotenv": "^14.3.2",
-    "mysql2": "^2.3.3",
     "nanoid": "^3.2.0",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.13.1",
     "twemoji": "^13.1.0",
     "uuid": "^8.3.2"
   }

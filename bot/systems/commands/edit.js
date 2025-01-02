@@ -1,55 +1,53 @@
-const Core    = require("core"),
-      Discord = require("discord.js"),
-      fetch   = require("node-fetch");
+const Core = require("core");
 
 exports.data = {
- name: "edit",
- description: "Editiert eine Nachricht",
- options: [
-  {
-   type: "STRING",
-   name: "id",
-   description: "ID der Nachricht, die editiert werden soll",
-   required: true
-  },
-  {
-   type: "STRING",
-   name: "content",
-   description: "Neuer Inhalt der Nachricht",
-   required: true
-  }
- ]
+  name: "edit",
+  description: "Edits a message",
+  options: [
+    {
+      type: "STRING",
+      name: "id",
+      description: "ID of the message to edit",
+      required: true
+    },
+    {
+      type: "STRING",
+      name: "content",
+      description: "New content of the message",
+      required: true
+    }
+  ]
 }
 
 /**
- * @param {Discord.CommandInteraction} interaction 
+ * @param {Discord.CommandInteraction} interaction
  */
 exports.run = async (interaction) => {
 
- // channel.name = userId
- let ticket = Core.tickets.cache.get(interaction.channel.name);
+  // channel.name = userId
+  let ticket = Core.tickets.cache.get(interaction.channel.name);
 
- if (!ticket) return;
+  if (!ticket) return;
 
- await interaction.deferReply({ ephemeral: true });
+  await interaction.deferReply({ephemeral: true});
 
- let formattedMessage = interaction.options.get("content")?.value
- formattedMessage = formattedMessage.replaceAll("\\n", "\n");
+  let formattedMessage = interaction.options.get("content")?.value
+  formattedMessage = formattedMessage.replaceAll("\\n", "\n");
 
- let edited = await ticket.editMessage(interaction.options.get("id").value, formattedMessage);
+  let edited = await ticket.editMessage(interaction.options.get("id").value, formattedMessage);
 
- if (edited) {
+  if (edited) {
 
-  interaction.editReply({
-   content: `${Core.data.config.messageTypes.success.emoji} Nachricht editiert.`
-  });
+    interaction.editReply({
+      content: `${Core.data.config.messageTypes.success.emoji} Message edited.`
+    });
 
- } else {
+  } else {
 
-  interaction.editReply({
-   content: `${Core.data.config.messageTypes.error.emoji} Nachricht nicht gefunden.`
-  });
+    interaction.editReply({
+      content: `${Core.data.config.messageTypes.error.emoji} Message not found.`
+    });
 
- }
+  }
 
 }

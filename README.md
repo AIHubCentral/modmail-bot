@@ -1,4 +1,4 @@
-# Fyfu ModMail
+# AI Hub ModMail
 
 ## Setup
 To setup the bot please fill in the `.env` file.
@@ -14,18 +14,3 @@ Every user in the `.env` file will automatically have permissions for slash comm
 Additionally users can be add in the "User Management" tab in the Dashboard. They will get permission to login **after restarting**, even permissions that use Slash Commands.
 
 The command `/support` is open for all users.
-
-## Code editing
-
-### Bot
-When the code in `./bot` has been edited, the bot needs to be restarted.
-
-### Dashboard
-When the code in `./dashboard/src` has been edited, the following needs to be run in the `./dashboard` folder:
-
-```
-npm i
-npm run build
-```
-
-And restart the dashboard after.

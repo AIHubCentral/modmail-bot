@@ -1,11 +1,11 @@
 {
- "type": "error",
- "info": "Wird beim Ausführen von /block gesendet.",
- "data": {
-  "embeds": [
-   {
-    "description": "User **${user}** blockiert."
-   }
-  ]
- }
+  "type": "error",
+  "info": "Wird beim Ausführen von /block gesendet.",
+  "data": {
+    "embeds": [
+      {
+        "description": "User **${user}** blocked."
+      }
+    ]
+  }
 }

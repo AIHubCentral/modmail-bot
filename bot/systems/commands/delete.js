@@ -1,46 +1,44 @@
-const Core    = require("core"),
-      Discord = require("discord.js"),
-      fetch   = require("node-fetch");
+const Core = require("core");
 
 exports.data = {
- name: "delete",
- description: "Löscht eine Nachricht",
- options: [
-  {
-   type: "STRING",
-   name: "id",
-   description: "ID der Nachricht, die gelöscht werden soll.",
-   required: true
-  }
- ]
+  name: "delete",
+  description: "Deletes a message",
+  options: [
+    {
+      type: "STRING",
+      name: "id",
+      description: "ID of the message to delete",
+      required: true
+    }
+  ]
 }
 
 /**
- * @param {Discord.CommandInteraction} interaction 
+ * @param {Discord.CommandInteraction} interaction
  */
 exports.run = async (interaction) => {
 
- // channel.name = userId
- let ticket = Core.tickets.cache.get(interaction.channel.name);
+  // channel.name = userId
+  let ticket = Core.tickets.cache.get(interaction.channel.name);
 
- if (!ticket) return;
+  if (!ticket) return;
 
- await interaction.deferReply({ ephemeral: true });
+  await interaction.deferReply({ephemeral: true});
 
- let deleted = await ticket.deleteMessage(interaction.options.get("id").value);
+  let deleted = await ticket.deleteMessage(interaction.options.get("id").value);
 
- if (deleted) {
+  if (deleted) {
 
-  interaction.editReply({
-   content: `${Core.data.config.messageTypes.success.emoji} Nachricht gelöscht.`
-  });
+    interaction.editReply({
+      content: `${Core.data.config.messageTypes.success.emoji} Message deleted.`
+    });
 
- } else {
+  } else {
 
-  interaction.editReply({
-   content: `${Core.data.config.messageTypes.error.emoji} Nachricht nicht gefunden.`
-  });
+    interaction.editReply({
+      content: `${Core.data.config.messageTypes.error.emoji} Message not found.`
+    });
 
- }
+  }
 
 }
