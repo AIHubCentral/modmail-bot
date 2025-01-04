@@ -178,6 +178,26 @@ class Ticket {
 
     let messageId = message.id, channelMessageId;
 
+    const attachments = message.attachments.map(async attachment => {
+      //const isImage = Core.utils.isImage(attachment.url);
+      //const isVideo = Core.utils.isVideo(attachment.url);
+      const isUrl = Core.utils.isValidURL(attachment.url);
+      if (isUrl) {
+        let new_url = await Core.utils.uploadToCatbox(attachment.url);
+        //const isNewImage = Core.utils.isImage(new_url);
+        //const isNewVideo = Core.utils.isVideo(new_url);
+        const isNewUrl = Core.utils.isValidURL(new_url);
+        if (isNewUrl) {
+          const trimmedOldUrl =  new URL(attachment.url).pathname
+          new_url = new_url + "?old_path=" + trimmedOldUrl;
+          attachment.url = new_url;
+          attachment.proxy_url = new_url;
+        }
+      }
+      return attachment;
+    });
+    await Promise.all(attachments);
+
     if (type === "DM") {
 
       channelMessageId = await this.webhook.send({
@@ -317,7 +337,7 @@ class Ticket {
     await Core.supabase.from("tickets")
       .update({messages: JSON.stringify([...this.messages.values()])})
       .eq("id", this.ticketId)
-      //.then((result) => console.log(result));
+    //.then((result) => console.log(result));
 
     /** Logs for debugging
      * console.log("Messages for ticket saved.");
@@ -339,7 +359,7 @@ class Ticket {
       await Core.supabase.from("tickets")
         .update({notifyuserids: JSON.stringify(notifyUserIds.filter(uId => uId !== userId))})
         .eq("id", this.ticketId)
-        //.then((result) => console.log(result));
+      //.then((result) => console.log(result));
 
     } else {
 
@@ -349,7 +369,7 @@ class Ticket {
       await Core.supabase.from("tickets")
         .update({notifyuserids: JSON.stringify([...new Set([...notifyUserIds, userId])])})
         .eq("id", this.ticketId)
-        //.then((result) => console.log(result));
+      //.then((result) => console.log(result));
 
     }
 

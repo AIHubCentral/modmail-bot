@@ -1,3 +1,6 @@
+const {Catbox} = require('node-catbox');
+const catbox = new Catbox(process.env.CATBOX_HASH || undefined);
+
 class Utils {
 
   static getMessageAsString(message) {
@@ -20,6 +23,31 @@ class Utils {
 
     return finalString;
 
+  }
+
+  static async uploadToCatbox(mediaUrl) {
+    return await catbox.uploadURL({
+      url: mediaUrl,
+    });
+  }
+
+  static isImage(url) {
+    console.log(url);
+    return /\.(jpg|jpeg|png|webp|gif|svg)(\?.*)?$/i.test(url);
+  }
+
+  static isVideo(url) {
+    return /\.(mp4|webm|ogg)(\?.*)?$/i.test(url);
+  }
+
+  static isValidURL(string) {
+    let url;
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
   }
 
 }
