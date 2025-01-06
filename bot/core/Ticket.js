@@ -178,7 +178,7 @@ class Ticket {
 
     let messageId = message.id, channelMessageId;
 
-    const attachments = message.attachments.map(async attachment => {
+    const attachments = message.attachments?.map(async attachment => {
       //const isImage = Core.utils.isImage(attachment.url);
       //const isVideo = Core.utils.isVideo(attachment.url);
       const isUrl = Core.utils.isValidURL(attachment.url);
