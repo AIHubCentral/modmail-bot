@@ -196,7 +196,9 @@ class Ticket {
       }
       return attachment;
     });
-    await Promise.all(attachments);
+    if (attachments) {
+      await Promise.all(attachments);
+    }
 
     if (type === "DM") {
 
